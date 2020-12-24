@@ -1,0 +1,45 @@
+{% extends "packing/base.html" %}
+{% load static %}
+
+{% block title %}メインメニュー{% endblock %}
+
+{% block additional_css %}{% endblock %}
+{% block addtional_js %}
+  <script src={% static 'packing/js/menu.js'%}></script>
+{% endblock %}
+
+{% block container %}
+  <h4>メニュー</h4>
+
+  <hr />
+
+  <h4>箱登録</h4>
+  <form>
+    <div class="row">
+      <div class="col-2">
+        <label for="box" class="sr-only">箱番号</label>
+        <input type="text" id="box" name="box" class="form-control" placeholder="箱番号を入力してください">
+      </div>
+      <div class="col-1">
+        <button type="button" id="register" class="btn btn-primary">箱登録へ</button>
+      </div>
+    </div>
+  </form>
+
+  <hr />
+
+  <h4>ラベル印刷</h4>
+  <form>
+    <div class="row">
+      <div class="col-2">
+        <label for="start" class="sr-only">開始箱番号</label>
+        <input type="text" id="start" name="start" class="form-control" placeholder="開始箱番号を入力してください">
+      </div>
+      <div class="col-1">
+        <button type="button" id="print" class="btn btn-outline-secondary">ラベル印刷へ</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+

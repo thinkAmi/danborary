@@ -1,0 +1,85 @@
+{% extends "packing/base.html" %}
+{% load static %}
+
+{% block title %}登録{% endblock %}
+
+{% block additional_css %}
+  {# datatables用 #}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block addtional_js %}
+  {# datatables用 #}
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+  {# このページ用 #}
+  <script src={% static 'packing/js/packing.js'%}></script>
+{% endblock %}
+
+{% block container %}
+  <h4>箱入れ</h4>
+
+  <hr />
+
+  <form>
+    <div class="form-group row">
+      <div class="col-2">
+        <input type="text" id="key" name="key" class="form-control" placeholder="国立国会図書館より検索するISBN">
+      </div>
+
+      <div class="col-1">
+        <button type="button" id="search" class="btn btn-outline-secondary">検索</button>
+      </div>
+    </div>
+  </form>
+
+  <hr />
+
+  <h5>書籍情報</h5>
+  <form>
+    <div class="form-group row">
+      <div class="col-3">
+        <input type="text" id="isbn" name="isbn" placeholder="ISBN" class="form-control">
+      </div>
+
+      <div class="col-3">
+        <input type="text" id="publisher" name="publisher" placeholder="出版社" class="form-control">
+      </div>
+
+      <div class="col-5">
+        <input type="text" id="creator" name="creator" placeholder="著者" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-11">
+        <input type="text" id="title" name="title" placeholder="タイトル" class="form-control">
+      </div>
+
+      <div class="col-1">
+        <button type="button" id="register" class="btn btn-primary">登録</button>
+      </div>
+    </div>
+
+    {# URLに含まれる box_id を hidden として埋め込んでおく #}
+    <input type="hidden" id="box" value="{{ box }}">
+  </form>
+
+  <hr />
+
+  {# DataTables #}
+  <div class="datatable">
+    <table id="books" class="table table-striped table-bordered dataTable">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>ISBN</th>
+        <th>タイトル</th>
+        <th>著者</th>
+        <th>出版社</th>
+      </tr>
+      </thead>
+    </table>
+  </div>
+{% endblock %}

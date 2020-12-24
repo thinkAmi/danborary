@@ -21,6 +21,7 @@ class NdlApiView(APIView):
                     'title': '',
                     'creator': '',
                     'publisher': '',
+                    'volume': '',
                 },
                 status=status.HTTP_200_OK)
 
@@ -34,6 +35,7 @@ class NdlApiView(APIView):
                     'title': ndl.get().title,
                     'creator': ndl.get().creator,
                     'publisher': ndl.get().publisher,
+                    'volume': ndl.get().volume,
                 },
                 status=status.HTTP_200_OK)
 
@@ -43,6 +45,9 @@ class NdlApiView(APIView):
         # NDLのAPIから取得
         cql = CQL()
         cql.isbn = key
+        # デフォルトだとマンガは取得できないので、明示的に「国立国会図書館オンライン」を指定
+        # ただし、マンガの場合、巻数が取れない
+        cql.dpid = 'iss-ndl-opac'
         client = SRUClient(cql)
         client.set_maximum_records(1)
 
@@ -54,6 +59,7 @@ class NdlApiView(APIView):
                     'title': '',
                     'creator': '',
                     'publisher': '',
+                    'volume': '',
                 },
                 status=status.HTTP_404_NOT_FOUND)
 
@@ -68,6 +74,8 @@ class NdlApiView(APIView):
                 'title': ndl.title,
                 'creator': ndl.creator,
                 'publisher': ndl.publisher,
+                # 巻数はこの時点では取得できない想定
+                'volume': '',
             },
             status=status.HTTP_200_OK)
 

@@ -28,9 +28,17 @@ class PackingPage {
       }
     })
 
-    $('#register').on('click', event => {
+    const registerButton = $('#register');
+    registerButton.on('click', event => {
       this.onClickRegister(event);
     });
+
+    $('#volume').on('keypress', event => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        registerButton.trigger('click');
+      }
+    })
   }
 
   onClickSearch(event) {
@@ -59,7 +67,10 @@ class PackingPage {
         $('#creator').val(data.creator);
         $('#publisher').val(data.publisher);
 
-        $('#register').focus();
+        const volume = $('#volume');
+        volume.val(data.volume);
+        // 巻数は手動になるので、入力しやすいようカーソルを合わせる
+        volume.focus();
       },
       () => {
         this.removeSpinner();
@@ -78,11 +89,12 @@ class PackingPage {
     this.setSpinner('register')
 
     const params = {
-      box: $('#box').val(),
+      number: $('#number').val(),
       isbn: $('#isbn').val(),
       title: title,
       creator: $('#creator').val(),
       publisher: $('#publisher').val(),
+      volume: $('#volume').val(),
     };
 
     $.ajax({
@@ -110,6 +122,7 @@ class PackingPage {
     $('#title').val('');
     $('#creator').val('');
     $('#publisher').val('');
+    $('#volume').val('');
   }
 
   loadDataTables() {
@@ -130,8 +143,9 @@ class PackingPage {
         {targets: 0, data: 'id'},
         {targets: 1, data: 'ndl__isbn'},
         {targets: 2, data: 'title'},
-        {targets: 3, data: 'creator'},
-        {targets: 4, data: 'publisher'},
+        {targets: 3, data: 'ndl__volume'},
+        {targets: 4, data: 'creator'},
+        {targets: 5, data: 'publisher'},
       ],
       // 登録順に表示したい
       order: [[0, 'desc']],

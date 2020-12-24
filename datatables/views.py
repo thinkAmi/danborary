@@ -12,6 +12,7 @@ class BookDataTableView(BaseDatatableView):
         'id',
         'ndl__isbn',
         'title',
+        'ndl__volume',
         'creator',
         'publisher',
     ]
@@ -21,6 +22,8 @@ class BookDataTableView(BaseDatatableView):
     def render_column(self, row, col):
         if col == 'ndl__isbn':
             return row.ndl.isbn
+        if col == 'ndl__volume':
+            return row.ndl.volume
         return super().render_column(row, col)
 
     def filter_queryset(self, qs):

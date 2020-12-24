@@ -17,11 +17,11 @@ class PackingView(TemplateView):
     template_name = 'packing/packing.html'
 
     def get(self, request, *args, **kwargs):
-        box_id = kwargs.get('box_id')
+        box_number = kwargs.get('box_number')
 
         # Boxが存在しない場合はエラーとせずにデータを作成する
         # (Boxのバーコード生成は容易なため、Boxの存在チェックは厳しく行わない)
-        Box.objects.get_or_create(pk=box_id)
+        Box.objects.get_or_create(number=box_number)
 
         return super().get(request, *args, **kwargs)
 

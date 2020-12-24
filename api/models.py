@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Box(models.Model):
+    number = models.IntegerField('箱番号', unique=True)
     note = models.CharField('備考', max_length=255, null=True, blank=True)
 
 
@@ -12,6 +13,7 @@ class Ndl(models.Model):
     title = models.CharField('タイトル', max_length=255, null=True, blank=True)
     creator = models.CharField('著者', max_length=255, null=True, blank=True)
     publisher = models.CharField('出版社', max_length=255, null=True, blank=True)
+    volume = models.IntegerField('巻数', null=True, blank=True)
 
 
 class Book(models.Model):

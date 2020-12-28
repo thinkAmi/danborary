@@ -108,6 +108,7 @@ class PackingPage {
       () => {
         this.removeSpinner('register')
         this.clearFields();
+        $('#key').val('');
         this.loadDataTables();
         this.setFocusToKey();
       },
